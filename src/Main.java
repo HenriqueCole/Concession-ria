@@ -11,7 +11,8 @@ public class Main {
                 "\n1- Cadastrar;" +
                 "\n2- Editar;" +
                 "\n3- Remover;" +
-                "\n4- Listar.");
+                "\n4- Listar;" +
+                "\n5- Vender.");
         int opcao = sc.nextInt();
         switch (opcao){
             case 1:
@@ -26,7 +27,86 @@ public class Main {
             case 4:
                 listar();
                 break;
+            case 5:
+                vender();
         }
+    }
+
+    private static void vender() {
+        System.out.println("--- VENDER ---" +
+                "\n1- Carro;" +
+                "\n2- Moto;" +
+                "\n3- Voltar.");
+        int opcao = sc.nextInt();
+        switch (opcao){
+            case 1:
+                venderCarro();
+                break;
+            case 2:
+                venderMoto();
+                break;
+            case 3:
+                menuPrincipal();
+                break;
+        }
+    }
+
+    private static void venderMoto() {
+        System.out.println("--- VENDER MOTO ---");
+        System.out.println("Digite a placa da moto: ");
+        String placa = sc.next();
+        for (int i = 0; i < Moto.listaMotos.size(); i++){
+            if (placa.equals(Moto.listaMotos.get(i).getPlaca())){
+                System.out.println("Tem certeza que deseja vendê-la? " +
+                        "\n1- Sim;" +
+                        "\n2- Não.");
+                int opcaoVenda = sc.nextInt();
+                switch (opcaoVenda){
+                    case 1:
+                        System.out.println("Valor da venda: ");
+                        double valor = sc.nextDouble();
+                        Moto moto = Moto.listaMotos.get(i);
+                        Automovel.listaVendas.add(moto);
+                        Moto.listaMotos.remove(i);
+                        System.out.println("Moto vendida com sucesso!");
+                        break;
+                    case 2:
+                        menuPrincipal();
+                        break;
+                }
+
+            }
+        }
+        menuPrincipal();
+    }
+
+    private static void venderCarro() {
+        System.out.println("--- VENDER CARRO ---");
+        System.out.println("Digite a placa do carro: ");
+        String placa = sc.next();
+        for (int i = 0; i < Carro.listaCarros.size(); i++){
+            if (placa.equals(Carro.listaCarros.get(i).getPlaca())){
+                System.out.println("Tem certeza que deseja vendê-lo? " +
+                        "\n1- Sim;" +
+                        "\n2- Não.");
+                int opcaoVenda = sc.nextInt();
+                switch (opcaoVenda){
+                    case 1:
+                        System.out.println("Valor da venda: ");
+                        double valor = sc.nextDouble();
+                        Carro carro = Carro.listaCarros.get(i);
+                        Automovel.listaVendas.add(carro);
+                        Carro.listaCarros.remove(i);
+                        System.out.println("Carro vendido com sucesso!");
+                        break;
+                    case 2:
+                        menuPrincipal();
+                        break;
+                }
+
+            }
+        }
+        menuPrincipal();
     }
 
     private static void cadastrar() {
@@ -325,7 +405,8 @@ public class Main {
         System.out.println("--- LISTAR ---" +
                 "\n1- Carro;" +
                 "\n2- Moto;" +
-                "\n3- Voltar.");
+                "\n3- Vendidos."+
+                "\n4- Voltar.");
         int opcao = sc.nextInt();
         switch (opcao){
             case 1:
@@ -335,9 +416,20 @@ public class Main {
                 listarMoto();
                 break;
             case 3:
+                listarVendidos();
+                break;
+            case 4:
                 menuPrincipal();
                 break;
         }
+    }
+
+    private static void listarVendidos() {
+        System.out.println("AUTOMÓVEIS VENDIDOS: ");
+        for (int i = 0; i < Automovel.listaVendas.size(); i++){
+            System.out.println(Automovel.listaVendas.get(i).toString());
+        }
+        menuPrincipal();
     }
 
     private static void listarMoto() {

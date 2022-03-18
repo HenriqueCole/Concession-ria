@@ -1,4 +1,8 @@
+import java.util.ArrayList;
+
 public class Automovel {
+    static ArrayList<Automovel> listaVendas = new ArrayList<Automovel>();
+
     private String placa;
     private double valor;
     private String modelo;
